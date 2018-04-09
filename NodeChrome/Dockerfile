@@ -97,13 +97,18 @@ RUN CD_VERSION=$(if [ ${CHROME_DRIVER_VERSION:-latest} = "latest" ]; then echo $
 ENV NODE_MAX_INSTANCES 1
 ENV NODE_MAX_SESSION 1
 ENV NODE_REGISTER_CYCLE 5000
-ADD https://raw.githubusercontent.com/bellajun/node-firefox-debug-zh/master/NodeChrome/generate_config /opt/selenium/generate_config
+COPY generate_config /opt/selenium/generate_config
+COPY generate_config /opt/bin/generate_config
 RUN chmod +x /opt/selenium/generate_config
+RUN chmod +x /opt/bin/generate_config
+# Generating a default config during build time
+RUN /opt/bin/generate_config > /opt/selenium/config.json
+
 
 #=================================
 # Chrome Launch Script Modication
 #=================================
-ADD https://raw.githubusercontent.com/bellajun/node-firefox-debug-zh/master/NodeChrome/chrome_launcher.sh /opt/google/chrome/google-chrome
+COPY chrome_launcher.sh /opt/google/chrome/google-chrome
 RUN chmod +x /opt/google/chrome/google-chrome
 
 RUN chown -R seluser:seluser /opt/selenium
