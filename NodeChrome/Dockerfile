@@ -113,6 +113,16 @@ RUN chmod +x /opt/google/chrome/google-chrome
 
 RUN chown -R seluser:seluser /opt/selenium
 
+# Install Node.js
+RUN apt-get install --yes curl
+RUN curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
+RUN apt-get install --yes nodejs
+RUN apt-get install --yes build-essential
+COPY . /src
+# Install app dependencies
+RUN cd /src; npm install
+
+
 USER seluser
 # Following line fixes
 # https://github.com/SeleniumHQ/docker-selenium/issues/87
