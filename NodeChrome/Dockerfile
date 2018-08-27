@@ -115,7 +115,7 @@ RUN chown -R seluser:seluser /opt/selenium
 
 # Install Node.js
 RUN apt-get install --yes curl
-#RUN curl --silent --location https://deb.nodesource.com/setup_4.x | sudo bash -
+RUN curl --silent --location https://deb.nodesource.com/setup_9.x | sudo bash -
 RUN apt-get install --yes nodejs
 RUN apt-get install --yes build-essential
 COPY . /src
