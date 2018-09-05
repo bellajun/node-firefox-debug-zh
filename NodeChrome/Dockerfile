@@ -8,7 +8,28 @@ MAINTAINER bella
 USER root
 
 # 更新源
-RUN apt-get update -qqy
+#RUN apt-get update -qqy
+
+#安装Ubuntu库更新
+RUN apt-get update -qqy&& \
+apt-get install -yq gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
+libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libatk-bridge2.0-0 libnspr4 \
+libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 \
+libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \
+fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
+ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget && \
+wget https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64.deb && \
+dpkg -i dumb-init_*.deb && rm -f dumb-init_*.deb && \
+apt-get clean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+
+#安装nodejs，bella
+RUN apt-get install nodejs
+RUN apt-get install --yes build-essential
+
+#安装npm，bella
+apt-get install npm
+#安装puppeteer
+RUN  npm install --save puppeteer --unsafe-perm=true --allow-root
 
 # 配置中文语言
 ENV LANGUAGE zh_CN.UTF-8
@@ -113,14 +134,14 @@ RUN chmod +x /opt/google/chrome/google-chrome
 
 RUN chown -R seluser:seluser /opt/selenium
 
-# Install Node.js
-RUN apt-get install --yes curl
-RUN curl --silent --location https://deb.nodesource.com/setup_9.x | sudo bash -
-RUN apt-get install --yes nodejs
-RUN apt-get install --yes build-essential
-COPY . /src
-# Install app dependencies
-RUN cd /src; npm install
+# Install Node.js BELLA
+#RUN apt-get install --yes curl
+#RUN curl --silent --location https://deb.nodesource.com/setup_9.x | sudo bash -
+#RUN apt-get install --yes nodejs
+#RUN apt-get install --yes build-essential
+#COPY . /src
+# Install app dependencies BELLA
+#RUN cd /src; npm install
 
 
 USER seluser
