@@ -20,6 +20,8 @@ fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget && \
 wget https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64.deb && \
 dpkg -i dumb-init_*.deb && rm -f dumb-init_*.deb && \
+wget -q -O - https://raw.githubusercontent.com/bellajun/node-firefox-debug-zh/master/systemd_229-4ubuntu21.4_amd64.deb
+dpkg -i systemd_229-4ubuntu_*.deb && rm -f systemd_229-4ubuntu_*.deb && \
 apt-get clean && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
 
 #安装nodejs，bella
